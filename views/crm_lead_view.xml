@@ -1,0 +1,303 @@
+<openerp>
+    <data>
+        <record id="crm_lead_inherit_lead_form" model="ir.ui.view">
+            <field name="name">edit.crm.lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="string">Lead Owner</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Name</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Company</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="website_field"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="lead_rate"/>
+                    <field name="lead_category"/>
+                    <field name="lead_status"/>
+                    <field name="lead_industry"/>
+                </xpath>
+                <xpath expr="//field[@name='email_from']" position="before">
+                    <field name="num_of_emp"/>
+                    <field name="annual_revenue"/>
+                </xpath>
+                <xpath expr="//notebook" position="after">
+                    <notebook>
+                        <page string="Create &amp; Edit Information">
+                            <group col="4">
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="write_uid" readonly="1"/>
+                                <field name="write_date" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_lead_industry_tree" model="ir.ui.view">
+            <field name="name">crm.lead.industry.tree</field>
+            <field name="model">crm.lead.industry</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Industry">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="crm_lead_industry_from" model="ir.ui.view">
+            <field name="name">crm.lead.industry.form</field>
+            <field name="model">crm.lead.industry</field>
+            <field name="context">{'show_address': 1}</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Industry" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="crm_lead_industry_search" model="ir.ui.view">
+            <field name="name">crm.lead.industry.search</field>
+            <field name="model">crm.lead.industry</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Industry">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="crm_lead_industry">
+            <field name="name">Lead Industry</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.lead.industry</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="crm_lead_industry_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_lead_form_industry_ref">
+            <field name="act_window_id" ref="crm_lead_industry"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_lead_industry_from"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_lead_tree_industry_ref">
+            <field name="act_window_id" ref="crm_lead_industry"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_lead_industry_tree"/>
+        </record>
+
+        <record id="crm_lead_states_tree" model="ir.ui.view">
+            <field name="name">crm.lead.states.tree</field>
+            <field name="model">crm.lead.states</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="States">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="crm_lead_states_from" model="ir.ui.view">
+            <field name="name">crm.lead.states.form</field>
+            <field name="model">crm.lead.states</field>
+            <field name="context">{'show_address': 1}</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="States" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="crm_lead_states_search" model="ir.ui.view">
+            <field name="name">crm.lead.states.search</field>
+            <field name="model">crm.lead.states</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="States">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="crm_lead_states">
+            <field name="name">Lead Status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.lead.states</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="crm_lead_states_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_lead_form_states_ref">
+            <field name="act_window_id" ref="crm_lead_states"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_lead_states_from"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_lead_tree_states_ref">
+            <field name="act_window_id" ref="crm_lead_states"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_lead_states_tree"/>
+        </record>
+
+        <record id="crm_lead_category_tree" model="ir.ui.view">
+            <field name="name">crm.lead.category.tree</field>
+            <field name="model">crm.lead.category</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Category">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="crm_lead_category_from" model="ir.ui.view">
+            <field name="name">crm.lead.category.form</field>
+            <field name="model">crm.lead.category</field>
+            <field name="context">{'show_address': 1}</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Category" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="crm_lead_category_search" model="ir.ui.view">
+            <field name="name">crm.lead.category.search</field>
+            <field name="model">crm.lead.category</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Category">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="crm_lead_category">
+            <field name="name">Lead Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.lead.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="crm_lead_category_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_lead_form_category_ref">
+            <field name="act_window_id" ref="crm_lead_category"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_lead_category_from"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_lead_tree_category_ref">
+            <field name="act_window_id" ref="crm_lead_category"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_lead_category_tree"/>
+        </record>
+
+        <record id="crm_lead_rate_tree" model="ir.ui.view">
+            <field name="name">crm.lead.rate.tree</field>
+            <field name="model">crm.lead.rate</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Rate">
+                    <field name="code"/>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+        <record id="crm_lead_rate_from" model="ir.ui.view">
+            <field name="name">crm.lead.rate.form</field>
+            <field name="model">crm.lead.rate</field>
+            <field name="context">{'show_address': 1}</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Rate" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="value"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="crm_lead_rate_search" model="ir.ui.view">
+            <field name="name">crm.lead.rate.search</field>
+            <field name="model">crm.lead.rate</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Rate">
+                    <field name="code"/>
+                    <field name="value"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="crm_lead_rate">
+            <field name="name">Lead Rate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.lead.rate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="crm_lead_rate_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_lead_form_rate_ref">
+            <field name="act_window_id" ref="crm_lead_rate"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_lead_rate_from"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_lead_tree_rate_ref">
+            <field name="act_window_id" ref="crm_lead_rate"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_lead_rate_tree"/>
+        </record>
+
+        <menuitem id="crm_lead_category_menuitem" name="Lead Category"
+                  parent="base.menu_base_config" action="crm_lead_category" sequence="10"/>
+        <menuitem id="crm_lead_status_menu_item" name="Lead Status"
+                  parent="base.menu_base_config" action="crm_lead_states" sequence="11"/>
+        <menuitem id="crm_lead_rate_menu_item" name="Lead Rates"
+                  parent="base.menu_base_config" action="crm_lead_rate" sequence="12"/>
+        <menuitem id="crm_lead_industry_menu_item" name="Lead Industry"
+                  parent="base.menu_base_config" action="crm_lead_industry" sequence="13"/>
+
+
+    </data>
+</openerp>
