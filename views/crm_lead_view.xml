@@ -5,6 +5,7 @@
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
             <field name="arch" type="xml">
+                <data>
                 <xpath expr="//field[@name='user_id']" position="attributes">
                     <attribute name="string">Lead Owner</attribute>
                 </xpath>
@@ -40,6 +41,7 @@
                         </page>
                     </notebook>
                 </xpath>
+                </data>
             </field>
         </record>
         <record id="crm_lead_inherit_oppor_form" model="ir.ui.view">
@@ -47,6 +49,7 @@
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
             <field name="arch" type="xml">
+                <data>
                 <xpath expr="//field[@name='user_id']" position="after">
                     <field name="op_sales_man"/>
                     <field name="op_sales_manager"/>
@@ -84,6 +87,7 @@
                         </page>
                     </notebook>
                 </xpath>
+                </data>
             </field>
         </record>
         <record id="crm_lead_inherit_oppor_tree" model="ir.ui.view">
