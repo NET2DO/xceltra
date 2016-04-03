@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+        <record model="ir.sequence.type" id="timesheet_code_sequence">
+            <field name="name">Code sequence Timesheet</field>
+            <field name="code">timesheet.sequence</field>
+        </record>
+        <record model="ir.sequence" id="timesheet_sequence">
+            <field name="name">Sequence For Timesheet</field>
+            <field name="code">timesheet.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="padding">6</field>
+            <field name="number_next">160041</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+        </record>
+    </data>
+</openerp>
