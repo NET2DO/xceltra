@@ -22,6 +22,7 @@
                     <field name="lead_category"/>
                     <field name="lead_status"/>
                     <field name="lead_industry"/>
+                    <field name="lead_source_lead"/>
                 </xpath>
                 <xpath expr="//field[@name='email_from']" position="before">
                     <field name="num_of_emp"/>
@@ -41,6 +42,338 @@
                 </xpath>
             </field>
         </record>
+        <record id="crm_lead_inherit_oppor_form" model="ir.ui.view">
+            <field name="name">edit.crm.lead.OP</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="op_sales_man"/>
+                    <field name="op_sales_manager"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="op_quotation"/>
+                    <field name="account_name"/>
+                    <field name="op_category_id"/>
+                    <field name="op_op_solution"/>
+                    <field name="lead_source_lead"/>
+                    <field name="track_number"/>
+                    <field name="op_type"/>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="enquiry_date"/>
+                    <field name="op_project"/>
+                </xpath>
+                <xpath expr="//field[@name='date_deadline']" position="replace">
+                    <field name="expected_close"/>
+                </xpath>
+                <xpath expr="//notebook" position="after">
+                    <group>
+                        <field name="op_refe"/>
+                        <field name="close_note"/>
+                        <field name="follow_up_note"/>
+                    </group>
+                    <notebook>
+                        <page string="Create &amp; Edit Information">
+                            <group col="4">
+                                <field name="create_uid" readonly="1"/>
+                                <field name="create_date" readonly="1"/>
+                                <field name="write_uid" readonly="1"/>
+                                <field name="write_date" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_lead_inherit_oppor_tree" model="ir.ui.view">
+            <field name="name">edit.crm.lead.OP</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='create_date']" position="after">
+                    <field name="code_seq"/>
+                    <field name="op_quotation"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_lead_source_tree" model="ir.ui.view">
+            <field name="name">lead.source.tree</field>
+            <field name="model">lead.source</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Lead Source">
+                    <field name="code"/>
+                    <field name="name"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="crm_lead_source_from" model="ir.ui.view">
+            <field name="name">lead.source.form</field>
+            <field name="model">lead.source</field>
+            <field name="context">{'show_address': 1}</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Lead Source" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                        <notebook/>
+                        <group>
+                            <field name="lead_details">
+                                <tree editable="top">
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </tree>
+                                <form>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </form>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="crm_lead_source_search" model="ir.ui.view">
+            <field name="name">lead.source.search</field>
+            <field name="model">lead.source</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Lead Source">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="crm_lead_source">
+            <field name="name">Lead Source</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lead.source</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="crm_lead_source_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_lead_source_ref">
+            <field name="act_window_id" ref="crm_lead_source"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_lead_source_from"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_lead_source_ref">
+            <field name="act_window_id" ref="crm_lead_source"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_lead_source_tree"/>
+        </record>
+
+        <record id="crm_opportunities_type_tree" model="ir.ui.view">
+            <field name="name">opportunities.type.tree</field>
+            <field name="model">opportunities.type</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Opportunities Type">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="crm_opportunities_type_from" model="ir.ui.view">
+            <field name="name">opportunities.type.form</field>
+            <field name="model">opportunities.type</field>
+            <field name="context">{'show_address': 1}</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Opportunities Type" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="crm_opportunities_type_search" model="ir.ui.view">
+            <field name="name">opportunities.type.search</field>
+            <field name="model">opportunities.type</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Opportunities Type">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="crm_opportunities_type">
+            <field name="name">Opportunities Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">opportunities.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="crm_opportunities_type_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_opportunities_type_ref">
+            <field name="act_window_id" ref="crm_opportunities_type"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_opportunities_type_from"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_opportunities_type_ref">
+            <field name="act_window_id" ref="crm_opportunities_type"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_opportunities_type_tree"/>
+        </record>
+
+        <record id="crm_opportunities_solution_tree" model="ir.ui.view">
+            <field name="name">opportunities.solution.tree</field>
+            <field name="model">opportunities.solution</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Opportunities Solution">
+                    <field name="code"/>
+                    <field name="name"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="crm_opportunities_solution_from" model="ir.ui.view">
+            <field name="name">opportunities.solution.form</field>
+            <field name="model">opportunities.solution</field>
+            <field name="context">{'show_address': 1}</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Opportunities Solution" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                        <notebook/>
+                        <group>
+                            <field name="sub_soluation_categ">
+                                <tree editable="top">
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </tree>
+                                <form>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </form>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="crm_opportunities_solution_search" model="ir.ui.view">
+            <field name="name">opportunities.solution.search</field>
+            <field name="model">opportunities.solution</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Opportunities Solution">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="crm_opportunities_solution">
+            <field name="name">Opportunities Solution</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">opportunities.solution</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="crm_opportunities_solution_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_opportunities_solution_ref">
+            <field name="act_window_id" ref="crm_opportunities_solution"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_opportunities_solution_from"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_opportunities_solution_ref">
+            <field name="act_window_id" ref="crm_opportunities_solution"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_opportunities_solution_tree"/>
+        </record>
+
+        <record id="crm_opportunities_category_tree" model="ir.ui.view">
+            <field name="name">opportunities.category.tree</field>
+            <field name="model">opportunities.category</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Opportunities Category">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="crm_opportunities_category_from" model="ir.ui.view">
+            <field name="name">opportunities.category.form</field>
+            <field name="model">opportunities.category</field>
+            <field name="context">{'show_address': 1}</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Opportunities Category" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="crm_opportunities_category_search" model="ir.ui.view">
+            <field name="name">opportunities.category.search</field>
+            <field name="model">opportunities.category</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Opportunities Category">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="crm_opportunities_category">
+            <field name="name">Opportunities Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">opportunities.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="crm_opportunities_category_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_opportunities_category_ref">
+            <field name="act_window_id" ref="crm_opportunities_category"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm_opportunities_category_from"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="crm_opportunities_category_ref">
+            <field name="act_window_id" ref="crm_opportunities_category"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="crm_opportunities_category_tree"/>
+        </record>
+
         <record id="crm_lead_industry_tree" model="ir.ui.view">
             <field name="name">crm.lead.industry.tree</field>
             <field name="model">crm.lead.industry</field>
@@ -289,14 +622,23 @@
             <field name="view_id" ref="crm_lead_rate_tree"/>
         </record>
 
+
         <menuitem id="crm_lead_category_menuitem" name="Lead Category"
                   parent="base.menu_base_config" action="crm_lead_category" sequence="10"/>
-        <menuitem id="crm_lead_status_menu_item" name="Lead Status"
+        <menuitem id="crm_lead_status_menu_item1" name="Lead Status"
                   parent="base.menu_base_config" action="crm_lead_states" sequence="11"/>
-        <menuitem id="crm_lead_rate_menu_item" name="Lead Rates"
+        <menuitem id="crm_lead_industry_menu_item88" name="Lead Source"
+                  parent="base.menu_base_config" action="crm_lead_source" sequence="16"/>
+        <menuitem id="crm_lead_rate_menu_item2" name="Lead Rates"
                   parent="base.menu_base_config" action="crm_lead_rate" sequence="12"/>
-        <menuitem id="crm_lead_industry_menu_item" name="Lead Industry"
+        <menuitem id="crm_lead_industry_menu_item3" name="Lead Industry"
                   parent="base.menu_base_config" action="crm_lead_industry" sequence="13"/>
+        <menuitem id="crm_lead_industry_menu_item4" name="Opportunities Category"
+                  parent="base.menu_base_config" action="crm_opportunities_category" sequence="14"/>
+        <menuitem id="crm_lead_industry_menu_item5" name="Opportunities Solution"
+                  parent="base.menu_base_config" action="crm_opportunities_solution" sequence="15"/>
+        <menuitem id="crm_lead_industry_menu_item7" name="Opportunities Type"
+                  parent="base.menu_base_config" action="crm_opportunities_type" sequence="16"/>
 
 
     </data>

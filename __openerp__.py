@@ -8,6 +8,7 @@
     'website': 'https://eg.linkedin.com/in/mostafa-mohammed-449a8786',
     'depends': ['base','report', 'sale','crm','project'],
     'data': ['views/crm_lead_view.xml',
+             'data/opportunity_sequence.xml',
              'security/ir.model.access.csv'],
     'installable': True,
     'auto_install': False,
