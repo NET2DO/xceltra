@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sale_order_quotation_view_form_inherit" model="ir.ui.view">
+            <field name="name">edit.sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='name']" position="after">
+                        <field name="quot_name"/>
+                    </xpath>
+                    <xpath expr="//field[@name='partner_id']" position="after">
+                        <field name="branch_id"/>
+                        <field name="branch_address"/>
+                        <field name="quot_works"/>
+                        <field name="lead_time"/>
+                        <field name="quot_works"/>
+                        <field name="bank_account"/>
+                    </xpath>
+                    <xpath expr="//field[@name='date_order']" position="before">
+                        <field name="issue_date"/>
+                        <field name="valid_until"/>
+                    </xpath>
+                    <xpath expr="//notebook" position="after">
+                        <field name="sales_terms" class="oe_inline" placeholder="Sale Terms ....."/>
+                        <notebook>
+                            <page string="Create &amp; Edit Information">
+                                <group col="4">
+                                    <field name="create_uid" readonly="1"/>
+                                    <field name="create_date" readonly="1"/>
+                                    <field name="write_uid" readonly="1"/>
+                                    <field name="write_date" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </xpath>
+                    <group name="sale_total" position="before">
+                        <group class="oe_subtotal_footer oe_left" colspan="4">
+                            <field name='convert_to'/>
+
+                        </group>
+                    </group>
+                    <xpath expr="//field[@name='order_line']/form/group[1]/group[1]/field[@name='price_unit']"
+                           position="after">
+                        <field name='supplier_pro'/>
+                        <field name='cost_price_readonly'/>
+                        <field name='cost_price_not'/>
+                        <field name='discount'/>
+                        <field name='lead_time'/>
+                        <field name='reason'/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="sale_quot_branch_tree" model="ir.ui.view">
+            <field name="name">quot.branch.tree</field>
+            <field name="model">quot.branch</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Quotation Branch">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="branch_address"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="sale_quot_branch_from" model="ir.ui.view">
+            <field name="name">quot.branch.form</field>
+            <field name="model">quot.branch</field>
+            <field name="context">{'show_address': 1}</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Quotation Branch" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="branch_address"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="sale_quot_branch_search" model="ir.ui.view">
+            <field name="name">quot.branch.search</field>
+            <field name="model">quot.branch</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Quotation Branch">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="branch_address"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="sale_quot_branch">
+            <field name="name">Quotation Branch</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">quot.branch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sale_quot_branch_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="sale_quot_branch_ref">
+            <field name="act_window_id" ref="sale_quot_branch"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sale_quot_branch_from"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="sale_quot_branch_ref">
+            <field name="act_window_id" ref="sale_quot_branch"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="sale_quot_branch_tree"/>
+        </record>
+    </data>
+</openerp>

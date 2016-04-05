@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="project_task_edit_form_inherit" model="ir.ui.view">
+            <field name="name">edit.project.task</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='project_id']" position="after">
+                        <field name="task_op_name"/>
+                        <field name="reminder"/>
+                    </xpath>
+                    <xpath expr="//notebook" position="inside">
+                        <page string="Feedback">
+                            <field name="feedback_text" class="oe_inline" placeholder="Feedback ........"/>
+                            <group>
+                                <field name="edit_by"/>
+                                <field name="date_add"/>
+                            </group>
+                        </page>
+                    </xpath>
+                    <xpath expr="//notebook" position="after">
+                        <notebook>
+                            <page string="Create &amp; Edit Information">
+                                <group col="4">
+                                    <field name="create_uid" readonly="1"/>
+                                    <field name="create_date" readonly="1"/>
+                                    <field name="write_uid" readonly="1"/>
+                                    <field name="write_date" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </xpath>
+
+                </data>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

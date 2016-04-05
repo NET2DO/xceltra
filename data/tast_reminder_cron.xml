@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record model="ir.cron" id="darsh_task_reminder">
+            <field name="name">Task Expiration Reminder</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'project.task'"/>
+            <field name="function" eval="'mail_remainder'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+    </data>
+
+    <data>
+        <record model="email.template" id="email_template_for_task">
+            <field name="name">Task Reminder alert</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="subject">Task Reminder alert</field>
+            <field name="email_to">${object.email}</field>
+            <field name="partner_to">${object.email or ''}</field>
+            <field name="email_from">${object.company_id.email or ''|safe}</field>
+            <field name="body_html"><![CDATA[<p>Dear ${object.name or 'partner'},</p>
+                <p>Your Task will be expired within short period.</p>
+                <p>Please Contact Project Manager  for further Info.</p>
+                <p>Best regards,</p>
+                <br/>]]>
+            </field>
+        </record>
+    </data>
+</openerp>
