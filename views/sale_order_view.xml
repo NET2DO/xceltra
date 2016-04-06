@@ -15,7 +15,6 @@
                         <field name="branch_address"/>
                         <field name="quot_works"/>
                         <field name="lead_time"/>
-                        <field name="quot_works"/>
                         <field name="bank_account"/>
                     </xpath>
                     <xpath expr="//field[@name='date_order']" position="before">
