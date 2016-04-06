@@ -11,7 +11,8 @@ AVAILABLE_PRIORITIES = [
 
 
 class project_task(models.Model):
-    _inherit = 'project.task', 'mail.thread'
+    _name = 'project.task'
+    _inherit = ['project.task', 'mail.thread']
 
     task_op_name = fields.Char(string='Opportunity Name')
     reminder = fields.Datetime(string='Reminder')

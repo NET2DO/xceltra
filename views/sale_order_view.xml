@@ -50,6 +50,15 @@
                         <field name='lead_time'/>
                         <field name='reason'/>
                     </xpath>
+                    <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']"
+                           position="after">
+                        <field name='supplier_pro'/>
+                        <field name='cost_price_readonly'/>
+                        <field name='cost_price_not'/>
+                        <field name='discount'/>
+                        <field name='lead_time'/>
+                        <field name='reason'/>
+                    </xpath>
                 </data>
             </field>
         </record>
